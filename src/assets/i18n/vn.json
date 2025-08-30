@@ -1,0 +1,263 @@
+{
+  "MENUITEMS": {
+    "MENU": {
+      "TEXT": "Systems"
+    },
+    "DASHBOARD": {
+      "TEXT": "Dashboard",
+      "LIST": {
+        "ANALYTICS": "Phân tích",
+        "CRM": "CRM",
+        "ECOMMERCE": "Ecommerce",
+        "LEARNING": "Learning",
+        "INDEX": "Tổng quan"
+      }
+    },
+    "APPS": {
+      "TEXT": "Quản lý ứng dụng",
+      "LIST": {
+        "CALENDAR": "lịch",
+        "CHAT": "Biểu đồ",
+        "EMAIL": "Email",
+        "REPORTS": "Báo cáo",
+        "MANAGERSYSTEMS" : "Quản lý hệ thống",
+        "MANAGERPRODUCTS": "Quản lý sản phẩm",
+        "LISTPRODUCTS": "Danh sách sản phẩm",
+        "PRODUCTGRID": "Products Grid",
+        "PRODUCTDETAILS": "Thông tin sản phẩm",
+        "CREATEPRODUCT": "Thêm sản phẩm mới",
+        "BRANDS": "Các thương hiệu",
+        "LISTBRANDS": "Danh sách thương hiệu",
+        "ORDEROVERVIEW": "Order Overview",
+        "CUSTOMERS": "Khách hàng",
+        "SHOPPINGCART": "Giỏ hàng",
+        "CHECKOUT": "Thanh toán",
+        "SELLERS": "Sellers",
+        "SELLEROVERVIEW": "Seller Overview",
+        "FILEMANAGER": "File Manager",
+        "LEARNING": "Manager Courses",
+        "LISTVIEW": "List View",
+        "GRIDVIEW": "Grid View",
+        "CATEGORY": "Danh mục sản phẩm",
+        "OVERVIEW": "Tổng quan",
+        "INVOICES": "Hóa đơn",
+        "LISTINVOICES": "Tất cả hóa đơn",
+        "PAIDINVOICES": "Đã thanh toán",
+        "UNPAIDINVOICES": "Chưa thanh toán",
+        "CREATEINVOICE": "Tạo hóa đơn",
+        "SUBSCRIPTIONS": "Manager Subscriptions",
+        "USERMANAGER": "Quản lý người dùng",
+        "LISTUSERS": "Danh sách người dùng",
+        "LISTINGGRID": "List Users",
+        "LISTINGLIST": "Listing List",
+        "LISTINGMAP": "Listing Map",
+        "PROPERTYOVERVIEW": "Property Overview",
+        "AGENT": "Agent",
+        "AGENCIES": "Agencies",
+        "ADDPROPERTY": "Add Property",
+        "EARNINGS": "Earnings",
+        "PROMOTION": "Các khuyến mãi",
+        "LISTPROMOTIONS": "Danh sách khuyến mãi",
+        "LISTCOUPONS": "Danh sách mã giảm giá",
+        "MANAGERNEWS": "Quản lý tin tức",
+        "MANAGERCOUPON": "Quản lý mã giảm giá",
+        "MANAGERBANNER": "Quản lý banner",
+        "MANAGERSYSTEMCONFIG": "Manager config Systems",
+        "MANAGERORDERS": "Các đơn hàng Online",
+        "ADDORDER": "Thêm đơn hàng",
+        "LISTORDERS": "Tất cả đơn hàng",
+        "PENDINGORDERS": "Đang chờ duyệt",
+        "PROCESSINGORDERS": "Đang xử lý",
+        "DELIVERINGORDERS": "Đang vận chuyển",
+        "SUCCESSORDERS": "Đã hoàn thành",
+        "FAILEDORDERS": "Không thành công",
+        "CANCELORDERS": "Đã hủy",
+        "MANAGERSHIPPERS": "Quản lý shipper",
+        "SHIPPERS": "Shippers",
+        "STAFFS": "Nhân viên",
+        "MANAGERINSTOREORDERS": "Các đơn hàng Offline",
+        "ADDINSTOREORDER": "Thêm đơn hàng",
+        "LISTINSTOREORDERS": "Danh sách đơn hàng"
+      }
+    },
+    "PAGES": {
+      "TEXT": "Trang"
+    },
+    "AUTHENTICATION": {
+      "TEXT": "Authentication",
+      "LIST": {
+        "SIGNIN": "Đăng nhập",
+        "SIGNUP": "Đăng ký",
+        "PASSWORDRESET": "Quên mật khẩu",
+        "PASSWORDCREATE": "Tạo mật khẩu mới",
+        "LOCKSCREEN": "Khóa màn hình",
+        "LOGOUT": "Đăng xuất",
+        "SUCCESSMESSAGE": "TThông báo thành công",
+        "TWOSTEPVERIFICATION": "Xác thực hai bước",
+        "ERRORS": "Lỗi",
+        "404ERROR": "404 Error",
+        "500": "500",
+        "503": "503",
+        "OFFLINE": "Offline Page"
+      }
+    },
+    "MORE": {
+      "TEXT": "More"
+    },
+    "EXTRAPAGES": {
+      "TEXT": "Trang",
+      "LIST": {
+        "STARTER": "Starter",
+        "PROFILE": "Profile",
+        "PROFILESETTINGS": "Profile Settings",
+        "CONTACTS": "Contacts",
+        "TIMELINE": "Timeline",
+        "FAQS": "FAQs",
+        "PRICING": "Pricing",
+        "MAINTENANCE": "Maintenance",
+        "COMINGSOON": "Coming Soon",
+        "PRIVACYPOLICY": "Privacy Policy",
+        "TERMS&CONDITIONS": "Term & Conditions"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "Components"
+    },
+    "BOOTSTRAPUI": {
+      "TEXT": "Bootstrap UI",
+      "LIST": {
+        "ALERTS": "Alerts",
+        "BADGES": "Badges",
+        "BUTTONS": "Buttons",
+        "COLORS": "Colors",
+        "CARDS": "Cards",
+        "CAROUSEL": "Carousel",
+        "DROPDOWNS": "Dropdowns",
+        "GRID": "Grid",
+        "IMAGES": "Images",
+        "TABS": "Tabs",
+        "ACCORDION&COLLAPSE": "Accordion & Collapse",
+        "MODALS": "Modals",
+        "OFFCANVAS": "Offcanvas",
+        "PLACEHOLDERS": "Placeholders",
+        "PROGRESS": "Progress",
+        "NOTIFICATIONS": "Notifications",
+        "MEDIAOBJECT": "Media object",
+        "EMBEDVIDEO": "Embed Video",
+        "TYPOGRAPHY": "Typography",
+        "LISTS": "Lists",
+        "LINKS": "Links",
+        "GENERAL": "General",
+        "UTILITIES": "Utilities"
+      }
+    },
+    "ADVANCEUI": {
+      "TEXT": "Advance UI",
+      "LIST": {
+        "SWEETALERTS": "Sweet Alerts",
+        "NESTABLELIST": "Nestable List",
+        "SCROLLBAR": "Scrollbar",
+        "SWIPERSLIDER": "Swiper Slider",
+        "RATTINGS": "Ratings",
+        "HIGHLIGHT": "Highlight",
+        "SCROLLSPY": "ScrollSpy"
+      }
+    },
+    "CUSTOMUI": {
+      "TEXT": "Custom UI",
+      "BADGE": "Custom",
+      "LIST": {
+        "RIBBONS": "Ribbons",
+        "PROFILE": "Profile",
+        "COUNTER": "Counter"
+      }
+    },
+    "WIDGETS": {
+      "TEXT": "Widgets"
+    },
+    "FORMS": {
+      "TEXT": "Forms",
+      "LIST": {
+        "BASICELEMENTS": "Basic Elements",
+        "FORMSELECT": "Form Select",
+        "CHECKBOXS&RADIOS": "Checkboxs & Radios",
+        "PICKERS": "Pickers",
+        "INPUTMASKS": "Input Masks",
+        "ADVANCED": "Advanced",
+        "RANGESLIDER": "Range Slider",
+        "VALIDATION": "Validation",
+        "WIZARD": "Wizard",
+        "EDITORS": "Editors",
+        "FILEUPLOADS": "File Uploads",
+        "FORMLAYOUTS": "Form Layouts"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tables",
+      "LIST": {
+        "BASICTABLES": "Basic Tables",
+        "GRIDJS": "Grid Js",
+        "LISTJS": "List Js",
+        "DATATABLES": "Datatables"
+      }
+    },
+    "CHARTS": {
+      "TEXT": "Apexcharts",
+      "LIST": {
+        "LINE": "Line",
+        "AREA": "Area",
+        "COLUMN": "Column",
+        "BAR": "Bar",
+        "MIXED": "Mixed",
+        "TIMELINE": "Timeline",
+        "RANGEAREA": "Range Area",
+        "FUNNEL": "Funnel",
+        "CANDLSTICK": "Candlstick",
+        "BOXPLOT": "Boxplot",
+        "BUBBLE": "Bubble",
+        "SCATTER": "Scatter",
+        "HEATMAP": "Heatmap",
+        "TREEMAP": "Treemap",
+        "PIE": "Pie",
+        "RADIALBAR": "Radialbar",
+        "RADAR": "Radar",
+        "POLARAREA": "Polar Area"
+      }
+    },
+    "ICONS": {
+      "TEXT": "Icons",
+      "LIST": {
+        "REMIX": "Remix",
+        "BOXICONS": "Boxicons",
+        "MATERIALDESIGN": "Material Design",
+        "BOOTSTRAP": "Bootstrap",
+        "PHOSPHOR": "Phosphor"
+      }
+    },
+    "MAPS": {
+      "TEXT": "Maps",
+      "LIST": {
+        "GOOGLE": "Google",
+        "VECTOR": "AmCharts",
+        "LEAFLET": "Leaflet"
+      }
+    },
+    "MULTILEVEL": {
+      "TEXT": "Multi Level",
+      "LIST": {
+        "LEVEL1": {
+          "1": "Level 1.1",
+          "2": "Level 1.2",
+          "LEVEL2": {
+            "1": "Level 2.1",
+            "2": "Level 2.2",
+            "LEVEL3": {
+              "1": "Level 3.1",
+              "2": "Level 3.2"
+            }
+          }
+        }
+      }
+    }
+  }
+}

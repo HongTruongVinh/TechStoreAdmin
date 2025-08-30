@@ -1,0 +1,92 @@
+{
+  "Category": {
+    "GetCategories": "category",
+    "GetCategory": "category/{0}",
+    "CreateCategory": "category",
+    "UpdateCategory": "category/{0}",
+    "DeleteCategory": "category/{0}"
+  },
+  "Brand": {
+    "GetBrands": "brand",
+    "GetBrand": "brand/{0}",
+    "CreateBrand": "brand",
+    "UpdateBrand": "brand/{0}",
+    "DeleteBrand": "brand/{0}"
+  },
+  "Product": {
+    "GetAdminProducts": "admin/products",
+    "GetAdminProductsByCtegoryId": "admin/products/{0}",
+    "GetAdminProduct": "admin/products/{0}",
+    "CreateProduct": "admin/products",
+    "UpdateProduct": "admin/products/{0}",
+    "DeleteProduct": "admin/products/{0}",
+    "GetCustomerProducts": "product"
+  },
+  "Order": {
+    "GetAllItems": "admin/orders",
+    "GetOrdersByStatus": "admin/orders/status/{0}",
+    "CancelOrder": "admin/orders/cancel/{0}",
+    "ChangeOrderToProcessing": "admin/orders/processing/{0}",
+    "ChangeOrderToDelivering": "admin/orders/delivering/{0}",
+    "ChangeOrderToCompleted": "admin/orders/completed/{0}",
+    "GetItem": "admin/orders/{0}",
+    "UpdateOrderStatus": "admin/orders/{0}",
+    "CreateInStoreOrder": "admin/orders/instore-orders",
+    "GetInStoreOrders": "admin/orders/instore-orders",
+    "GetInStoreOrder": "admin/orders/instore-orders/{0}",
+    "ConfirmInStoreOrder": "admin/orders/instore-orders/confirm-instore-order/{0}",
+    "CheckoutInStoreOrder": "admin/orders/instore-orders/checkout/{0}",
+    "DeleteOrder": "admin/orders/delete/{0}"
+  },
+  "User": {
+    "UpdateProfile": "User/update-information/{0}",
+    "GetUsers": "User/profile/{0}",
+    "GetCustomers": "admin/users/customers",
+    "GetStaffs": "admin/users/staffs",
+    "ActiveUser": "admin/users/active/{0}",
+    "BanUser": "admin/users/ban/{0}",
+    "DeleteUser": "admin/users/delete"
+  },
+  "Statistics": {
+    "GetDashboardOverviewData": "admin/statistics/overview"
+  },
+  "Home": {
+    "GetDataForHome": "home"
+  },
+  "UploadDataCloud": {
+    "UpLoadPhotoToCloud": "upload-to-cloud/cloudinary/{0}",
+    "DeletePhotoCloud": "upload-to-cloud/cloudinary/{0}",
+    "UpdateStatusSoftware": "upload-to-cloud/file-software/status/{0}",
+    "UpdateInformationSoftware": "upload-to-cloud/file-software/{0}",
+    "GetListFileSoftware": "upload-to-cloud/file-software"
+  },
+  "Authentication": {
+    "RegisterUser": "authentication/register/{0}/{1}/{2}/{3}",
+    "LoginNormalAccount": "admin/authentication/login",
+    "LoginWithGoogle": "authentication/login-google",
+    "LoginWithFaceBook": "authentication/login-facebook"
+  },
+  "Shipper": {
+    "GetShippers": "shipper",
+    "GetShipper": "shipper/{0}",
+    "CreateShipper": "shipper",
+    "UpdateShipper": "shipper/{0}",
+    "DeleteShipper": "shipper/{0}",
+    "GetItemsByStatus": "shipper/status/{0}"
+  },
+  "Invoice": {
+    "GetInvoices": "invoices",
+    "GetInvoice": "invoices/{0}",
+    "CreateInvoice": "invoices",
+    "UpdateInvoice": "invoices/{0}",
+    "DeleteInvoice": "invoices/{0}"
+  },
+  "Payment": {
+    "GetPayments": "payments",
+    "GetPayment": "payments/{0}",
+    "CreatePayment": "payments",
+    "UpdatePayment": "payments/{0}",
+    "DeletePayment": "payments/{0}",
+    "CheckoutPayment": "payments/checkout/{0}"
+  }
+}

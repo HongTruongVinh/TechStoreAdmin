@@ -1,0 +1,225 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Thanh toán" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="row">
+    <div class="col-xxl-8">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="card-title mb-0">Thông tin hóa đơn</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <label for="customerName" class="form-label">Khách hàng</label>
+                                <input type="text" class="form-control" id="customerName" placeholder="customerName"
+                                    value="{{instoreOrder.customerName}}" readonly>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="customerPhoneNumber" class="form-label">SĐT</label>
+                                <input type="text" class="form-control" id="customerPhoneNumber"
+                                    placeholder="Phone number" value="{{instoreOrder.customerPhonenumber}}" readonly>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="cashier" class="form-label">Thu ngân</label>
+                                <input type="text" class="form-control" id="cashier" placeholder="cashier"
+                                    value="{{cashierName}}" readonly>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="createdAt" class="form-label">Thời gian</label>
+                                <input type="text" class="form-control" id="createdAt" placeholder="createdAt"
+                                    value="{{instoreOrder.createdAt | dateToString:'getDatetime'}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12" *ngIf="isLoading" id="elmLoader">
+                <div class="spinner-border text-primary avatar-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h6 class="card-title mb-0 me-2 text-nowrap">Mã thanh toán online</h6>
+                        <!-- <select *ngIf="!isPaid" [(ngModel)]="selectedpaymentMethodId"
+                            (ngModelChange)="onPaymentMethodChange($event)" class="form-select" style="width: 200px;">
+                            <option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.methodId">
+                                {{ paymentMethod.name }}
+                            </option>
+                        </select> -->
+                    </div>
+
+                    <div class="card-body">
+                        <div *ngIf="!isPaid" class="row">
+                            <div *ngIf="isNotCashMethod" class="col-lg-12">
+                                <a class="text-primary" (click)="checkPayment()">Đã thanh toán xong? bấm để kiểm tra <i
+                                        class="bi bi-search"></i></a>
+                                <div [hidden]="yetToPayImage" class="text-center p-3 pb-0">
+                                    <p class="text-muted mb-2 mb-md-0" (click)="goToConfirmCheckout()">Quét mã QR để
+                                        thanh toán </p>
+                                    <img [src]="instoreOrder.paymentQRCode | base64Image " alt="QR Code"
+                                        class="qr-small">
+                                </div>
+
+                                <div [hidden]="!yetToPayImage" class="text-center p-3 pb-0">
+                                    <p class="text-muted mb-2 mb-md-0">Chưa thanh toán</p>
+                                    <img src="assets/images/tech-shop/icons8-sad.gif" class="popup-image" alt="Done">
+                                </div>
+                            </div>
+
+                            <div *ngIf="!isNotCashMethod" class="col-lg-12">
+                                <div class="text-center p-3 pb-0">
+                                    <p class="text-muted mb-2 mb-md-0">Tiền mặt </p>
+                                    <img src="assets/images/tech-shop/icons8-cash-96.png" alt="Cash">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="isPaid" class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center p-3 pb-0">
+                                    <p class="text-muted mb-2 mb-md-0">Đã thanh toán thành công </p>
+                                    <img src="assets/images/tech-shop/icons8-done-128.png" alt="Done">
+                                    <p class="text-muted mt-2">Phương thức: {{instoreOrder.paymentMethod}} </p>
+                                    <p *ngIf="instoreOrder.paymentMethod ==='Online'" class="text-muted mt-2">Mã giao dịch: {{instoreOrder.transactionCode}} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--col -->
+    <div class="col-xxl-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <h5 class="card-title mb-0">Các sản phẩm</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-borderless align-middle mb-0">
+                                <thead class="table-active text-muted">
+                                    <tr>
+                                        <th style="width: 90px;" scope="col">Sản phẩm</th>
+                                        <th scope="col">Thông tin</th>
+                                        <th scope="col" class="text-end">Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (data of instoreOrder.items; track $index) {
+                                    <tr>
+                                        <td>
+                                            <div class="avatar-md">
+                                                <div class="avatar-title bg-light rounded">
+                                                    <img [src]="data.mainImageUrl | fullImageUrl" alt=""
+                                                        class="avatar-sm">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5 class="fs-md"><a routerLink="/ecommerce/product-details"
+                                                    class="text-dark">{{data.productName}}</a></h5>
+                                            <p class="text-muted fw-medium mb-0">{{data.priceAtOrderTime}} x
+                                                {{data.quantity}}</p>
+                                        </td>
+                                        <td class="text-end fw-semibold">{{data.totalPrice}}</td>
+                                    </tr>
+                                    }
+                                    <tr>
+                                        <td class="fw-semibold" colspan="2">Giá tổng sản phẩm :</td>
+                                        <td class="fw-semibold text-end">{{instoreOrder.totalPrice | thousandSeparator}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Giảm giá : </td>
+                                        <td class="text-end">- {{instoreOrder.discountAmount | thousandSeparator}}</td>
+                                    </tr>
+                                    <tr class="border-top border-dashed">
+                                        <th colspan="2">Tổng (VND) :</th>
+                                        <td class="text-end">
+                                            <span class="fw-semibold">
+                                                {{instoreOrder.finalAmount | thousandSeparator}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <!-- end card body -->
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+        <div *ngIf="!isPaid" class="text-end">
+            <button type="button" data-bs-toggle="modal" (click)="confirmOrderModal.show()"
+                class="btn btn-primary me-1">Thanh toán tiền mặt</button>
+            <button type="button" data-bs-toggle="modal" (click)="deleteOrderModal.show()"
+                class="btn btn-secondary me-1">Xóa hóa đơn</button>
+        </div>
+    </div><!--end col-->
+</div><!--end row-->
+
+<!--confirm orders-->
+<div bsModal #confirmOrderModal="bs-modal" id="confirmOrderModal" class="modal fade zoomIn">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" (click)="confirmOrderModal.hide()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center text-primary">
+                    <i class="bi bi-shop display-6"></i>
+                    <div class="mt-4 pt-2 mx-4 mx-sm-5 ">
+                        <h4 class="text-primary">Xác nhận hóa đơn ?</h4>
+                        <p class="text-muted mx-4 mb-0">Bạn có chắc là khách hàng đã thanh toán ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-ghost-danger" (click)="confirmOrderModal.hide()"><i
+                            class="bi bi-x-lg align-baseline me-1"></i> Chưa</button>
+                    <button type="button" class="btn w-sm btn-success" (click)="confirmOrder()">Chắc chắn</button>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--delete orders-->
+<div bsModal #deleteOrderModal="bs-modal" id="deleteOrderModal" class="modal fade zoomIn">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" (click)="deleteOrderModal.hide()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center text-danger">
+                    <i class="bi bi-trash display-5"></i>
+                    <div class="mt-4 pt-2 mx-4 mx-sm-5">
+                        <h4>Xác nhận hóa đơn ?</h4>
+                        <p class="text-muted mx-4 mb-0">Bạn có chắc muốn xóa hóa đơn ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-ghost-danger" (click)="deleteOrderModal.hide()"><i
+                            class="bi bi-x-lg align-baseline me-1"></i> Tiếp tục thanh toán</button>
+                    <button type="button" class="btn w-sm btn-success " (click)="deleteOrder()">Xóa</button>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

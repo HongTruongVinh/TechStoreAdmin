@@ -1,0 +1,302 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Thêm sản phẩm mới" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-4">
+                            <h5 class="card-title mb-3">Thông tin sản phẩm</h5>
+                            <p class="text-muted">Những thông tin chi tiết của sản phẩm sẽ được hiển thị lên trang web
+                            </p>
+                        </div>
+                        <div class="col-xxl-8">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Tên sản phẩm <span
+                                        class="text-danger">*</span></label>
+                                <input formControlName="name" type="text" class="form-control" id="name"
+                                    placeholder="Nhập tên sản phẩm" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Danh mục <span
+                                        class="text-danger">*</span></label>
+                                <select formControlName="categoryId" class="form-control" data-choices name="category"
+                                    id="category">
+                                    <option value="">Chọn danh mục</option>
+                                    <option *ngFor="let category of categories; let i = index"
+                                        [value]="category.categoryId">
+                                        {{ category.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="brand" class="form-label">Nhãn hiệu<span
+                                        class="text-danger">*</span></label>
+                                <select formControlName="brandId" class="form-control" data-choices name="brand"
+                                    id="brand">
+                                    <option value="">Chọn nhãn hiệu</option>
+                                    <option *ngFor="let brand of brands; let i = index" [value]="brand.brandId">
+                                        {{ brand.name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="shortDescription" class="form-label">Mô tả ngắn <span
+                                        class="text-danger">*</span></label>
+                                <textarea formControlName="shortDescription" class="form-control" id="shortDescription"
+                                    placeholder="Mô tả ngắn ít hơn 100 chữ" rows="3"></textarea>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="tag" class="form-label">Tags (mỗi tag cách nhau bằng dấu
+                                            cách)</label>
+                                        <input formControlName="tag" type="text" class="form-control" id="tag"
+                                            placeholder="Tag" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="slug" class="form-label">Slug</label>
+                                        <input formControlName="slug" type="text" class="form-control" id="slug"
+                                            placeholder="Enter slug">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mt-3">
+                                    <div class="form-check mb-3">
+                                        <input formControlName="isFeatured" class="form-check-input" type="checkbox" id="isFeatured">
+                                        <label class="form-check-label text-primary" for="isFeatured">
+                                            Đặt làm sản phẩm nổi bật
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-4">
+                            <h5 class="card-title mb-3">Mỗ tả sản phẩm</h5>
+                            <p class="text-muted">Mội dung mổ tả sẽ hiển thị trên website</p>
+                        </div><!--end col-->
+                        <div class="col-xxl-8">
+                            <div>
+                                <label class="form-label">Nội dung mô tả <span class="text-danger">*</span></label>
+                                <ckeditor formControlName="description" [editor]="Editor" [config]="editorConfig">
+                                </ckeditor>
+                            </div>
+                        </div>
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-4">
+                            <h5 class="card-title mb-3">Thumbnail</h5>
+                        </div><!--end col-->
+                        <div class="col-xxl-8">
+                            <div class="mb-3">
+                                <label class="form-label">Hình ảnh thumbnail của sản phẩm<span
+                                        class="text-danger">*</span></label>
+                                <dropzone class="dropzone" [config]="thumbnailDropzoneConfig" 
+                                [message]="'Thả hình ảnh hoặc chọn hình ảnh mới.'"
+                                    (success)="onUploadThumbnailSuccess($event)" 
+                                    (removedFile)="removeThumbnail($event)" 
+                                    (error)="onUploadError($event)">
+                         </dropzone>
+
+                        @if (thumbnailUrl) {
+                        <ul class="list-unstyled mb-0" id="dropzone-preview">
+
+                            <li class="mt-2" id="dropzone-preview-list">
+                                <div class="border rounded">
+                                    <div class="d-flex flex-wrap gap-2 p-2">
+                                        <div class="flex-shrink-0 me-3">
+                                            <div class="avatar-sm bg-light rounded p-2">
+                                                @if (thumbnailUrl) {
+                                                <img class="img-fluid rounded d-block" [src]="thumbnailUrl" alt="Dropzone-Image" />
+                                                }@else {
+                                                <img class="img-fluid rounded d-block" [src]="thumbnailFile" alt="Dropzone-Image" />
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="pt-1">
+                                                @if (thumbnailUrl) {<h5 class="fs-md mb-1 text-break">Là hình ảnh hiện tại.</h5>} @else {<h5 class="fs-md mb-1 text-break">{{ thumbnailFile.name }}</h5>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                        }
+                                <!-- end dropzon-preview -->
+                            </div>
+                        </div>
+                    </div><!--end row-->
+                    <div class="row mt-5">
+                        <div class="col-xxl-4">
+                            <h5 class="card-title mb-3">Thư viện ảnh</h5>
+                            <p class="text-muted">Những hình ảnh minh họa sản phẩm</p>
+                        </div><!--end col-->
+                        <div class="col-xxl-8">
+                            <div class="mb-3">
+                                <label class="form-label">Dánh sách các hình ảnh <span class="text-danger">*</span></label>
+                                <dropzone class="dropzone" [config]="imagesDropzoneConfig"
+                                    [message]="'Drop files here or click to upload.'"
+                                    (success)="onUploadImageSuccess($event)"></dropzone>
+                                @if (imageFiles) {
+                                <ul class="list-unstyled mb-0" id="dropzone-preview">
+                                    @for (file of imageFiles; track $index) {
+                                    <li class="mt-2" id="dropzone-preview-list">
+                                        <div class="border rounded">
+                                            <div class="d-flex p-2">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar-sm bg-light rounded p-2">
+                                                        @if (file.publicId) {
+                                                        <img class="img-fluid rounded d-block" [src]="file.publicId | fullImageUrl"
+                                                            alt="Dropzone-Image" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <div class="pt-1">
+                                                        @if (file.name) { <h5 class="fs-md mb-1">{{ file.name }}</h5>}
+                                                        @if (file.size) { <p class="fs-sm text-muted mb-0">{{ file.size
+                                                            }}</p>}
+                                                    </div>
+                                                </div>
+                                                <div class="flex-shrink-0 ms-3">
+                                                    <button  type="button" (click)="removeImageFile(file)"
+                                                        class="btn btn-sm btn-danger">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    }
+                                </ul>
+                                }
+                                <!-- end dropzon-preview -->
+                            </div>
+                        </div>
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xxl-4">
+                            <h5 class="card-title mb-3">Thông tin chung</h5>
+                        </div><!--end col-->
+                        <div class="col-xxl-8">
+                            <div class="row gy-3">
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label for="stock" class="form-label">Nhập kho <span
+                                                class="text-danger">*</span></label>
+                                        <input formControlName="stock" type="text" class="form-control" id="stock"
+                                            placeholder="Số lượng" required>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label class="form-label" for="importPrice">Giá nhập</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="importPrice-addon">VND</span>
+                                            <input formControlName="importPrice" type="text" class="form-control"
+                                                id="importPrice" placeholder="nhập giá nhập hàng" aria-label="Price"
+                                                aria-describedby="product-price-addon">
+                                            <div class="invalid-feedback">Xin hãy nhập giá nhập hàng.</div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label class="form-label" for="product-price-input">Giá bán</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="product-price-addon">VND</span>
+                                            <input formControlName="price" type="text" class="form-control"
+                                                id="product-price-input" placeholder="nhập giá bán" aria-label="Price"
+                                                aria-describedby="product-price-addon" required="">
+                                            <div class="invalid-feedback">Xin hãy nhập giá bán.</div>
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="startSellingDateInput" class="form-label">Ngày bắt đầu bán</label>
+                                        <input formControlName="startSellingDate" type="text" class="form-control"
+                                            showWeekNumbers="false" bsDatepicker [bsConfig]="bsConfig">
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label for="endSellingDateInput" class="form-label">Ngày ngừng bán</label>
+                                        <input formControlName="endSellingDate" type="text" class="form-control"
+                                            showWeekNumbers="false" bsDatepicker [bsConfig]="bsConfig">
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label class="form-label" for="product-discount-input">Số tiền sale</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="product-sale-addon">VND</span>
+                                            <input formControlName="salePrice" type="text" class="form-control"
+                                                id="product-discount-input" placeholder="Enter discount"
+                                                aria-label="discount" aria-describedby="product-discount-addon">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label for="saleStartInput" class="form-label">Ngày bắt đầu sale</label>
+                                        <input formControlName="saleStart" type="text" class="form-control"
+                                            showWeekNumbers="false" bsDatepicker [bsConfig]="bsConfig">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div>
+                                        <label for="saleEndInput" class="form-label">Ngày kết thúc sale</label>
+                                        <input formControlName="saleEnd" type="text" class="form-control"
+                                            showWeekNumbers="false" bsDatepicker [bsConfig]="bsConfig">
+                                    </div>
+                                </div>
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end row-->
+                </div>
+            </div>
+        </div><!--end col-->
+    </div><!--end row-->
+
+    <div class="hstack gap-2 justify-content-end mb-3">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+    </div>
+
+</form>
