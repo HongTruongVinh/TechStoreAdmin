@@ -21,14 +21,6 @@ theme: any;
       document.documentElement.setAttribute('data-theme', 'default');
     }
     document.documentElement.setAttribute('data-layout', 'vertical');
-    document.documentElement.setAttribute('data-sidebar', 'dark');
-    document.documentElement.setAttribute('data-bs-theme', 'light');
-    document.documentElement.setAttribute('data-layout-width', 'fluid');
-    document.documentElement.setAttribute('data-sidebar-image', 'none');
-    document.documentElement.setAttribute('data-layout-position', 'fixed');
-    document.documentElement.setAttribute('data-layout-style', 'default');
-    document.documentElement.setAttribute('data-topbar', 'light');
-    document.documentElement.setAttribute('data-preloader', 'disable');
 
     window.addEventListener('resize', function () {
       if (document.documentElement.clientWidth <= 767) {

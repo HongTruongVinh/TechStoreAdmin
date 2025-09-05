@@ -17,8 +17,8 @@ export class ProductService {
         private transferHttp: TransferHttpService
     ) { }
 
-    getAllItems() {
-        const ApiUrl = LinkSettings.GetResLinkSetting('Product', 'GetAdminProducts');
+    getAllItems(pageNumber: number = 1, pageSize: number = 200) {
+        const ApiUrl = LinkSettings.GetResLinkSetting('Product', 'GetAdminProducts', pageNumber, pageSize);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<ProductModel[]>) => res));
     }
 
@@ -52,8 +52,8 @@ export class ProductService {
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<CustomerProductListItemModel[]>) => res));
     }
 
-    searchCustomerProducts() {
-        const ApiUrl = LinkSettings.GetResLinkSetting('Product', 'SearchCustomerProducts');
+    searchCustomerProducts(keyword: string) {
+        const ApiUrl = LinkSettings.GetResLinkSetting('Product', 'SearchCustomerProducts', keyword, 1, 7);
         return this.transferHttp.get(ApiUrl).pipe(map((res: RepositoryModel<CustomerProductListItemModel[]>) => res));
     }
 }

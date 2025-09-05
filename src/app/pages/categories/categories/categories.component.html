@@ -5,12 +5,12 @@
 <div class="row align-items-center mb-4 g-2">
     <div class="col-lg-3 col-md-4 me-auto">
         <div class="search-box">
-            <input type="text" class="form-control search" placeholder="Search name of the category" [(ngModel)]="term" (keyup)="filterdata()">
+            <input type="text" class="form-control search" placeholder="Tìm kiếm bằng tên danh mục" [(ngModel)]="term" (keyup)="filterdata()">
             <i class="ri-search-line search-icon"></i>
         </div>
     </div><!--end col-->
     <div class="col-md-auto">
-        <a href="javascript:void(0);" class="btn btn-secondary" (click)="showAddModal()"><i class="bi bi-plus-circle align-baseline me-1"></i> Add Category</a>
+        <a href="javascript:void(0);" class="btn btn-secondary" (click)="showAddModal()"><i class="bi bi-plus-circle align-baseline me-1"></i> Thêm danh mục</a>
     </div><!--end col-->
 </div>
 <div class="table-responsive">
@@ -99,7 +99,7 @@
 <div class="row align-items-center mb-3" id="pagination-element">
     <div class="col-sm">
         <div class="text-muted text-center text-sm-start">
-            Display <span class="fw-semibold">{{displayedCategories.length}}</span> of <span class="fw-semibold">{{displayedCategories.length}}</span> result
+            Hiển thị <span class="fw-semibold">{{displayedCategories.length}}</span> trong số <span class="fw-semibold">{{displayedCategories.length}}</span> kết quả
         </div>
     </div><!--end col-->
     <div class="col-sm-auto mt-3 mt-sm-0">

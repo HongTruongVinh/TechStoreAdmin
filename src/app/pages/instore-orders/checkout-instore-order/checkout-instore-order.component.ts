@@ -199,6 +199,7 @@ breadCrumbItems!: Array<{}>;
         this.isLoading = false;
         // Handle error case
       }
+    this.isLoading = false; 
     });
   }
 

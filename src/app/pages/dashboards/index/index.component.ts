@@ -103,6 +103,8 @@ breadCrumbItems!: Array<{}>;
     hotProducts: [],
     bestSellProducts: [],
     bestRatedProducts: [],
+    loyalCustomer: [],
+    recentlyActions: [],
   };
 
   constructor(

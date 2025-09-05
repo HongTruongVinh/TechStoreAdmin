@@ -10,22 +10,26 @@
                     <div class="row g-3">
                         <div class="col-xxl">
                             <div class="search-box">
-                                <input type="text" class="form-control search" [(ngModel)]="term" (keyup)="filterdata()" placeholder="Tìm kiếm sản phẩm, giá etc...">
+                                <input type="text" class="form-control search" [(ngModel)]="term" (keyup)="search()"
+                                    placeholder="Tìm kiếm sản phẩm, giá etc...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
                         </div><!--end col-->
                         <div class="col-xxl col-sm-6">
                             <div>
-                                <ng-select [items]="brands" [multiple]="true" bindLabel="name" placeholder="Chọn nhãn hàng"></ng-select>
+                                <ng-select [items]="brands" [multiple]="true" bindLabel="name" bindValue="brandId"
+                                    placeholder="Chọn nhãn hàng" [(ngModel)]="selectedBrands">
+                                </ng-select>
                             </div>
                         </div><!--end col-->
+
                         <div class="col-xxl-3 col-sm-6">
                             <div>
-                                <select class="form-control" id="idCategory">
+                                <select class="form-control" id="idCategory" [(ngModel)]="selectedCategory">
                                     <option value="">Chọn danh mục</option>
-                                    <option *ngFor="let category of categories; let i = index" [value]="category.name">
-                                            {{ category.name }}
-                                        </option>
+                                    <option *ngFor="let category of categories" [value]="category.categoryId">
+                                        {{ category.name }}
+                                    </option>
                                 </select>
                             </div>
                         </div><!--end col-->
@@ -43,7 +47,8 @@
                             </div>
                         </div><!--end col-->
                         <div class="col-xxl-auto col-sm-6">
-                            <button type="button" class="btn btn-secondary w-md"><i class="bi bi-funnel align-baseline me-1"></i> Lọc</button>
+                            <button type="button" class="btn btn-secondary w-md" (click)="filterProducts()"><i
+                                    class="bi bi-funnel align-baseline me-1"></i> Lọc</button>
                         </div><!--end col-->
                     </div><!--end row-->
                 </div>
@@ -56,12 +61,15 @@
             <div class="card">
                 <div class="card-header d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <h5 class="card-title mb-0">Tất cả sản phẩm <span class="badge bg-dark-subtle text-dark ms-1">{{allProducts.length}}</span></h5>
+                        <h5 class="card-title mb-0">Tất cả sản phẩm <span
+                                class="badge bg-dark-subtle text-dark ms-1">{{allProducts.length}}</span></h5>
                     </div>
                     <div class="flex-shrink-0">
                         <div class="d-flex flex-wrap align-items-start gap-2">
-                            <button class="btn btn-subtle-danger d-none" id="remove-actions" (click)="deleteModal.show()"><i class="ri-delete-bin-2-line"></i></button>
-                            <button type="button" class="btn btn-primary add-btn" (click)="goToAddProductPage()"><i class="bi bi-plus-circle align-baseline me-1"></i>
+                            <button class="btn btn-subtle-danger d-none" id="remove-actions"
+                                (click)="deleteModal.show()"><i class="ri-delete-bin-2-line"></i></button>
+                            <button type="button" class="btn btn-primary add-btn" (click)="goToAddProductPage()"><i
+                                    class="bi bi-plus-circle align-baseline me-1"></i>
                                 Thêm sản phẩm</button>
                         </div>
                     </div>
@@ -73,7 +81,9 @@
                                 <tr>
                                     <th>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="option" [(ngModel)]="masterSelected" (change)="checkUncheckAll($event)" id="checkAll">
+                                            <input class="form-check-input" type="checkbox" value="option"
+                                                [(ngModel)]="masterSelected" (change)="checkUncheckAll($event)"
+                                                id="checkAll">
                                             <label class="form-check-label" for="checkAll"></label>
                                         </div>
                                     </th>
@@ -92,18 +102,23 @@
                                 <tr id="p_{{data._id}}">
                                     <td>
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="checkAll" value="{{data._id}}" [(ngModel)]="data.states" (change)="onCheckboxChange($event)">
+                                            <input class="form-check-input" type="checkbox" name="checkAll"
+                                                value="{{data._id}}" [(ngModel)]="data.states"
+                                                (change)="onCheckboxChange($event)">
                                             <label class="form-check-label"></label>
                                         </div>
                                     </td>
-                                    <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#TB01</a></td>
+                                    <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                            class="fw-medium link-primary">#TB01</a></td>
                                     <td class="products">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar-xs bg-light rounded p-1 me-2">
-                                                <img [src]="data.mainImageUrl | fullImageUrl" alt="" class="img-fluid d-block">
+                                                <img [src]="data.mainImageUrl | fullImageUrl" alt=""
+                                                    class="img-fluid d-block">
                                             </div>
                                             <div>
-                                                <h6 class="mb-0"><a routerLink="/ecommerce/product-details" class="text-reset products">{{data.name}}</a></h6>
+                                                <h6 class="mb-0"><a routerLink="/ecommerce/product-details"
+                                                        class="text-reset products">{{data.name}}</a></h6>
                                             </div>
                                         </div>
                                     </td>
@@ -113,7 +128,9 @@
                                     <td class="price">{{data.price | thousandSeparator}}</td>
                                     <td class="orders">{{data.soldCount}}</td>
                                     <td class="rating">
-                                        <span class="badge bg-warning-subtle text-warning"><i class="bi bi-star-fill align-baseline me-1"></i> {{data.averageRating}}</span>
+                                        <span class="badge bg-warning-subtle text-warning"><i
+                                                class="bi bi-star-fill align-baseline me-1"></i>
+                                            {{data.averageRating}}</span>
                                     </td>
                                     <td class="published">{{data.startSellingDate | dateToString:'getDate'}}</td>
                                     <td>
@@ -123,15 +140,21 @@
                                             </button>
 
                                             <ul *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item" routerLink="/ecommerce/product-details" href="javascript:void(0);"><i class="ph-eye align-middle me-1"></i> View</a></li>
-                                                <li><a class="dropdown-item edit-item-btn" (click)="goToUpdateProductPage(data.productId)"><i class="ph-pencil align-middle me-1"></i>
+                                                <li><a class="dropdown-item" routerLink="/ecommerce/product-details"
+                                                        href="javascript:void(0);"><i
+                                                            class="ph-eye align-middle me-1"></i> View</a></li>
+                                                <li><a class="dropdown-item edit-item-btn"
+                                                        (click)="goToUpdateProductPage(data.productId)"><i
+                                                            class="ph-pencil align-middle me-1"></i>
                                                         Edit</a></li>
-                                                <li><a class="dropdown-item remove-item-btn" (click)="showDeleteModal(data.id)" href="javascript:void(0);"><i class="ph-trash align-middle me-1"></i> Remove</a></li>
+                                                <li><a class="dropdown-item remove-item-btn"
+                                                        (click)="showDeleteModal(data.id)" href="javascript:void(0);"><i
+                                                            class="ph-trash align-middle me-1"></i> Remove</a></li>
                                             </ul>
                                         </div>
                                     </td>
                                 </tr>
-                            }
+                                }
                             </tbody>
                             <div *ngIf="isLoading" id="elmLoader">
                                 <div class="spinner-border text-primary avatar-sm" role="status">
@@ -158,12 +181,15 @@
                     <div class="row mt-3 align-items-center" id="pagination-element">
                         <div class="col-sm">
                             <div class="text-muted text-center text-sm-start">
-                                Showing <span class="fw-semibold">{{displayedProducts?.length}}</span> of <span class="fw-semibold">{{allProducts.length}}</span> Results
+                                Showing <span class="fw-semibold">{{displayedProducts?.length}}</span> of <span
+                                    class="fw-semibold">{{allProducts.length}}</span> Results
                             </div>
                         </div>
 
                         <div class="col-sm-auto mt-3 mt-sm-0">
-                            <pagination class="pagination-wrap hstack gap-2 justify-content-center" [totalItems]="allProducts.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+                            <pagination class="pagination-wrap hstack gap-2 justify-content-center"
+                                [totalItems]="allProducts.length" [itemsPerPage]="10"
+                                (pageChanged)="pageChanged($event)"></pagination>
                         </div>
                     </div>
                     <!-- end pagination-element -->
@@ -183,7 +209,8 @@
                 <button type="button" class="btn-close" (click)="addModal.hide()"></button>
             </div>
 
-            <form (ngSubmit)="addAction()" [formGroup]="createForm" class="tablelist-form" novalidate autocomplete="off">
+            <form (ngSubmit)="addAction()" [formGroup]="createForm" class="tablelist-form" novalidate
+                autocomplete="off">
                 <div class="modal-body p-4">
                     <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
                     <input type="hidden" id="id-field">
@@ -194,12 +221,15 @@
 
                     <div class="mb-3">
                         <label for="product-name-input" class="form-label">Tên sản phẩm</label>
-                        <input type="text" id="product-name-input" formControlName="name" class="form-control" placeholder="Enter product title" required>
+                        <input type="text" id="product-name-input" formControlName="name" class="form-control"
+                            placeholder="Enter product title" required>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Ảnh</label>
-                        <dropzone class="dropzone" [config]="dropzoneConfig" [message]="'Drop files here or click to upload.'" (success)="onUploadSuccess($event)"></dropzone>
+                        <dropzone class="dropzone" [config]="dropzoneConfig"
+                            [message]="'Drop files here or click to upload.'" (success)="onUploadSuccess($event)">
+                        </dropzone>
 
                         @if (uploadedFiles) {
                         <ul class="list-unstyled mb-0" id="dropzone-preview">
@@ -209,7 +239,8 @@
                                     <div class="d-flex p-2">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar-sm bg-light rounded p-2">
-                                                <img class="img-fluid rounded d-block" [src]="file.dataURL" alt="Dropzone-Image" />
+                                                <img class="img-fluid rounded d-block" [src]="file.dataURL"
+                                                    alt="Dropzone-Image" />
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -219,14 +250,15 @@
                                             </div>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
-                                            <button (click)="removeFile(file)" class="btn btn-sm btn-danger">Delete</button>
+                                            <button (click)="removeFile(file)"
+                                                class="btn btn-sm btn-danger">Delete</button>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                        }
+                            }
                         </ul>
-                    }
+                        }
                     </div>
 
                     <div class="mb-3">
@@ -255,7 +287,8 @@
                                 <label for="product-importprice-input" class="form-label">Giá nhập</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="product-importprice-input" formControlName="importPrice" placeholder="Enter product importprice" required>
+                                    <input type="number" class="form-control" id="product-importprice-input"
+                                        formControlName="importPrice" placeholder="Enter product importprice" required>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +297,8 @@
                                 <label for="product-price-input" class="form-label">Giá bán</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="product-price-input" formControlName="price" placeholder="Enter product price" required>
+                                    <input type="number" class="form-control" id="product-price-input"
+                                        formControlName="price" placeholder="Enter product price" required>
                                 </div>
                             </div>
                         </div>
@@ -273,7 +307,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-ghost-danger" (click)="addModal.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="button" class="btn btn-ghost-danger" (click)="addModal.hide()"><i
+                                class="bi bi-x-lg align-baseline me-1"></i> Close</button>
                         <button type="submit" class="btn btn-primary" id="add-btn">Add product</button>
                     </div>
                 </div>
@@ -284,7 +319,7 @@
 <!-- end add modal -->
 
 <!-- update modal -->
- <div class="modal fade" bsModal #updateModal="bs-modal">
+<div class="modal fade" bsModal #updateModal="bs-modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header px-4 pt-4">
@@ -292,7 +327,8 @@
                 <button type="button" class="btn-close" (click)="updateModal.hide()"></button>
             </div>
 
-            <form (ngSubmit)="updateAction()" [formGroup]="updateForm" class="tablelist-form" novalidate autocomplete="off">
+            <form (ngSubmit)="updateAction()" [formGroup]="updateForm" class="tablelist-form" novalidate
+                autocomplete="off">
                 <div class="modal-body p-4">
                     <div id="alert-error-msg" class="d-none alert alert-danger py-2"></div>
                     <input type="hidden" id="id-field">
@@ -303,12 +339,15 @@
 
                     <div class="mb-3">
                         <label for="product-title-input" class="form-label">Tên sản phẩm</label>
-                        <input type="text" id="product-title-input" formControlName="name" class="form-control" placeholder="Enter product title" required>
+                        <input type="text" id="product-title-input" formControlName="name" class="form-control"
+                            placeholder="Enter product title" required>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Ảnh sản phẩm</label>
-                        <dropzone class="dropzone" [config]="dropzoneConfig" [message]="'Drop files here or click to upload.'" (success)="onUploadSuccess($event)"></dropzone>
+                        <dropzone class="dropzone" [config]="dropzoneConfig"
+                            [message]="'Drop files here or click to upload.'" (success)="onUploadSuccess($event)">
+                        </dropzone>
 
                         @if (uploadedFiles) {
                         <ul class="list-unstyled mb-0" id="dropzone-preview">
@@ -318,7 +357,8 @@
                                     <div class="d-flex p-2">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar-sm bg-light rounded p-2">
-                                                <img class="img-fluid rounded d-block" [src]="file.dataURL" alt="Dropzone-Image" />
+                                                <img class="img-fluid rounded d-block" [src]="file.dataURL"
+                                                    alt="Dropzone-Image" />
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -328,14 +368,15 @@
                                             </div>
                                         </div>
                                         <div class="flex-shrink-0 ms-3">
-                                            <button (click)="removeFile(file)" class="btn btn-sm btn-danger">Delete</button>
+                                            <button (click)="removeFile(file)"
+                                                class="btn btn-sm btn-danger">Delete</button>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                        }
+                            }
                         </ul>
-                    }
+                        }
                     </div>
 
                     <div class="mb-3">
@@ -364,7 +405,8 @@
                                 <label for="product-importprice-input" class="form-label">Giá nhập</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="product-importprice-input" formControlName="importPrice" placeholder="Giá nhập" required>
+                                    <input type="number" class="form-control" id="product-importprice-input"
+                                        formControlName="importPrice" placeholder="Giá nhập" required>
                                 </div>
                             </div>
                         </div>
@@ -373,7 +415,8 @@
                                 <label for="product-price-input" class="form-label">Giá bán</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">$</span>
-                                    <input type="number" class="form-control" id="product-price-input" formControlName="price" placeholder="Giá bán" required>
+                                    <input type="number" class="form-control" id="product-price-input"
+                                        formControlName="price" placeholder="Giá bán" required>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +425,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="hstack gap-2 justify-content-end">
-                        <button type="button" class="btn btn-ghost-danger" (click)="updateModal.hide()"><i class="bi bi-x-lg align-baseline me-1"></i> Close</button>
+                        <button type="button" class="btn btn-ghost-danger" (click)="updateModal.hide()"><i
+                                class="bi bi-x-lg align-baseline me-1"></i> Close</button>
                         <button type="submit" class="btn btn-primary" id="add-btn">Update product</button>
                     </div>
                 </div>
@@ -410,8 +454,10 @@
                     </div>
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                    <button type="button" class="btn w-sm btn-light btn-hover" (click)="deleteModal.hide()">Close</button>
-                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record" (click)="deleteAction(deleteId)">Yes, Delete It!</button>
+                    <button type="button" class="btn w-sm btn-light btn-hover"
+                        (click)="deleteModal.hide()">Close</button>
+                    <button type="button" class="btn w-sm btn-danger btn-hover" id="delete-record"
+                        (click)="deleteAction(deleteId)">Yes, Delete It!</button>
                 </div>
             </div>
         </div>

@@ -23,28 +23,28 @@ import { OrderItemCreateModel } from '../../../models/models/order-item/order-it
   selector: 'app-add-instore-order',
   standalone: true,
   imports: [
-        ModalModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgSelectModule,
-        BreadcrumbsComponent,
-        ThousandSeparatorPipe,
-        DateToStringPipe,
-        FullImageUrlPipe
-    ],
+    ModalModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    BreadcrumbsComponent,
+    ThousandSeparatorPipe,
+    DateToStringPipe,
+    FullImageUrlPipe
+  ],
   templateUrl: './add-instore-order.component.html',
   styleUrl: './add-instore-order.component.scss'
 })
 export class AddInstoreOrderComponent {
-breadCrumbItems!: Array<{}>;
+  breadCrumbItems!: Array<{}>;
   isLoading = false;
 
   invoiceAuthor: any;
   invoiceTime!: Date;
   newOrderForm!: UntypedFormGroup;
 
-  allProducts: CustomerProductListItemModel[] = []; 
+  allProducts: CustomerProductListItemModel[] = [];
   displayedProducts: any;
   term: any;
   cartData!: OrderItemModel[];
@@ -62,12 +62,12 @@ breadCrumbItems!: Array<{}>;
 
   paymentMethods: { methodId: number, name: string }[] = [];
   paymentMethodNames: Record<EPaymentMethod, string> = {
-  [EPaymentMethod.CreditCard]: 'Thẻ tín dụng',
-  [EPaymentMethod.Momo]: 'Momo',
-  [EPaymentMethod.PayPal]: 'PayPal',
-  [EPaymentMethod.COD]: 'Thanh toán khi nhận hàng (COD)',
-  [EPaymentMethod.Cash]: 'Tiền mặt'
-};
+    [EPaymentMethod.CreditCard]: 'Thẻ tín dụng',
+    [EPaymentMethod.Momo]: 'Momo',
+    [EPaymentMethod.PayPal]: 'PayPal',
+    [EPaymentMethod.COD]: 'Thanh toán khi nhận hàng (COD)',
+    [EPaymentMethod.Cash]: 'Tiền mặt'
+  };
   selectedpaymentMethodId: number = 0;
 
   @ViewChild('searchModal', { static: false }) searchModal!: ModalDirective;
@@ -94,11 +94,11 @@ breadCrumbItems!: Array<{}>;
     ];
 
     this.newOrderForm = this.formBuilder.group({
-          customerName: ['Hồng Trường Vinh', Validators.required],
-          customerPhoneNumber: ['0399123123', Validators.required],
-          customerEmail: ['vinh@gmail.com'],
+      customerName: ['Nguyễn văn A', Validators.required],
+      customerPhoneNumber: ['0399123123', Validators.required],
+      customerEmail: ['nguyenvana.@gmail.com'],
 
-        });
+    });
 
     this.paymentMethods = Object.values(EPaymentMethod)
       .filter(value => typeof value === 'number') // chỉ lấy các giá trị số
@@ -119,30 +119,30 @@ breadCrumbItems!: Array<{}>;
   }
 
   loadData() {
-    this.isLoading = true;
+    this.isLoading = false;
     invoiceTime: Date.UTC(Date.now());
     this.cartData = [];
 
-    this.productService.getCustomerProducts().subscribe((res) => {
-      if (res.retCode == 0) {
-        if (res.data) {
-          this.allProducts = res.data;
-          this.isLoading = false;
-        } else {
-          this.allProducts = [];
-        }
-      } else {
-        this.isLoading = false;
-      }
-    })
-    
-  }
-
-  saveAction(){
+    // this.productService.getCustomerProducts().subscribe((res) => {
+    //   if (res.retCode == 0) {
+    //     if (res.data) {
+    //       this.allProducts = res.data;
+    //       this.isLoading = false;
+    //     } else {
+    //       this.allProducts = [];
+    //     }
+    //   } else {
+    //     this.isLoading = false;
+    //   }
+    // })
 
   }
 
-  goToCheckout(){
+  saveAction() {
+
+  }
+
+  goToCheckout() {
 
     if (this.cartData.length == 0) {
       alert("Vui lòng chọn sản phẩm trước khi thanh toán");
@@ -191,15 +191,36 @@ breadCrumbItems!: Array<{}>;
   }
 
   searchProduct() {
-    if (this.term) {
-      this.displayedProducts = this.allProducts.filter((el: any) => el.name.toLowerCase().includes(this.term.toLowerCase())).slice(0, 7);
-      if( this.displayedProducts.length > 0) {
-        this.searchModal.show();
-      }
-      else{
-        this.searchModal.hide();
-      }
+
+    if (this.term.trim() === '' || this.term == undefined) {
+      this.displayedProducts = [];
+      this.searchModal.hide();
+      return;
     }
+
+    this.productService.searchCustomerProducts(this.term).subscribe((res) => {
+      if (res.retCode == 0) {
+        if (res.data) {
+          this.displayedProducts = res.data;
+          if (this.displayedProducts.length > 0) {
+            this.searchModal.show();
+          }
+          else {
+            this.searchModal.hide();
+          }
+        }
+      }
+    })
+
+    // if (this.term) {
+    //   this.displayedProducts = this.allProducts.filter((el: any) => el.name.toLowerCase().includes(this.term.toLowerCase())).slice(0, 7);
+    //   if( this.displayedProducts.length > 0) {
+    //     this.searchModal.show();
+    //   }
+    //   else{
+    //     this.searchModal.hide();
+    //   }
+    // }
   }
 
   selectProduct(data: any) {
@@ -224,7 +245,7 @@ breadCrumbItems!: Array<{}>;
     this.searchModal.hide();
 
     this.term = '';
-    this.calculateQty(1, 0, this.cartData.length -1)
+    this.calculateQty(1, 0, this.cartData.length - 1)
   }
 
   removeOrderItem(productId: string) {
@@ -232,7 +253,7 @@ breadCrumbItems!: Array<{}>;
 
     if (index !== -1) {
       this.cartData.splice(index, 1);
-      
+
       this.subtotal = 0;
       this.cartData.map((x: any) => {
         this.subtotal += parseFloat(x['totalPrice'])
@@ -267,7 +288,7 @@ breadCrumbItems!: Array<{}>;
     this.totalprice = (parseFloat(this.subtotal) - parseFloat(this.discount))
   }
 
-  goToConfirmCheckout(){
-    
+  goToConfirmCheckout() {
+
   }
 }

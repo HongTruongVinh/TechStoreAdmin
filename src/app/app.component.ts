@@ -16,6 +16,6 @@ export class AppComponent implements OnInit {
     document.documentElement.setAttribute('data-bs-theme', 'light');
     document.documentElement.setAttribute('data-topbar', 'light');
     document.documentElement.removeAttribute('data-theme'); // Remove any custom theme
-    localStorage.setItem('theme', 'default'); // Set default theme in localStorage
+    //localStorage.setItem('theme', 'creative'); // Set default theme in localStorage
   }
 }

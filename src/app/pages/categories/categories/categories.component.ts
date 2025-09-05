@@ -207,7 +207,7 @@ export class CategoriesComponent {
       const dataInsert: CategoryUpdateModel = {
         name: this.categoryUpdateForm.value.name,
         description: this.categoryUpdateForm.value.description,
-        slug: this.categoryAddForm.value.slug,
+        slug: this.categoryUpdateForm.value.slug,
         iconImageUrl: this.photoPublicId,
       }
 

@@ -66,7 +66,6 @@ export class ProductsComponent {
   publicId?: string;
   deleteId: any;
   categories: CategoryModel[] = [];
-  selectedCategory!: CategoryModel;
   brands: BrandModel[] = [];
   selectedBrand!: BrandModel;
 
@@ -167,8 +166,8 @@ export class ProductsComponent {
 
   }
 
-  // filterdata
-  filterdata() {
+  // search
+  search() {
     if (this.term) {
       this.displayedProducts = this.allProducts.filter((el: any) => el.name.toLowerCase().includes(this.term.toLowerCase()))
     } else {
@@ -177,6 +176,23 @@ export class ProductsComponent {
     // noResultElement
     this.updateNoResultDisplay();
   }
+
+  selectedBrands: string[] = [];   // vì bindValue="id"
+  selectedCategory: string | null = null;
+
+filterProducts() {
+  this.displayedProducts = this.allProducts.filter(product => {
+    const matchBrand = this.selectedBrands.length > 0 
+      ? this.selectedBrands.includes(product.brand.brandId) 
+      : true;
+
+    const matchCategory = this.selectedCategory 
+      ? product.category.categoryId === this.selectedCategory 
+      : true;
+
+    return matchBrand && matchCategory;
+  });
+}
 
 
   // no result 

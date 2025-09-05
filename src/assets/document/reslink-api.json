@@ -1,26 +1,28 @@
 {
   "Category": {
-    "GetCategories": "category",
-    "GetCategory": "category/{0}",
-    "CreateCategory": "category",
-    "UpdateCategory": "category/{0}",
-    "DeleteCategory": "category/{0}"
+    "GetCategories": "categories",
+    "GetCategory": "categories/{0}",
+    "CreateCategory": "categories",
+    "UpdateCategory": "categories/{0}",
+    "DeleteCategory": "categories/{0}"
   },
   "Brand": {
-    "GetBrands": "brand",
-    "GetBrand": "brand/{0}",
-    "CreateBrand": "brand",
-    "UpdateBrand": "brand/{0}",
-    "DeleteBrand": "brand/{0}"
+    "GetBrands": "brands",
+    "GetBrand": "brands/{0}",
+    "CreateBrand": "brands",
+    "UpdateBrand": "brands/{0}",
+    "DeleteBrand": "brands/{0}"
   },
   "Product": {
-    "GetAdminProducts": "admin/products",
+    "GetAdminProducts": "admin/products?pageNumber={0}&pageSize={1}",
     "GetAdminProductsByCtegoryId": "admin/products/{0}",
     "GetAdminProduct": "admin/products/{0}",
     "CreateProduct": "admin/products",
     "UpdateProduct": "admin/products/{0}",
     "DeleteProduct": "admin/products/{0}",
-    "GetCustomerProducts": "product"
+    "GetCustomerProducts": "products",
+    "SearchCustomerProducts": "products/search?keyword={0}&pageNumber={1}&pageSize={2}"
+    
   },
   "Order": {
     "GetAllItems": "admin/orders",
@@ -39,8 +41,8 @@
     "DeleteOrder": "admin/orders/delete/{0}"
   },
   "User": {
-    "UpdateProfile": "User/update-information/{0}",
-    "GetUsers": "User/profile/{0}",
+    "UpdateProfile": "Users/update-information/{0}",
+    "GetUsers": "Users/profile/{0}",
     "GetCustomers": "admin/users/customers",
     "GetStaffs": "admin/users/staffs",
     "ActiveUser": "admin/users/active/{0}",
@@ -67,12 +69,12 @@
     "LoginWithFaceBook": "authentication/login-facebook"
   },
   "Shipper": {
-    "GetShippers": "shipper",
-    "GetShipper": "shipper/{0}",
-    "CreateShipper": "shipper",
-    "UpdateShipper": "shipper/{0}",
-    "DeleteShipper": "shipper/{0}",
-    "GetItemsByStatus": "shipper/status/{0}"
+    "GetShippers": "shippers",
+    "GetShipper": "shippers/{0}",
+    "CreateShipper": "shippers",
+    "UpdateShipper": "shippers/{0}",
+    "DeleteShipper": "shippers/{0}",
+    "GetItemsByStatus": "shippers/status/{0}"
   },
   "Invoice": {
     "GetInvoices": "invoices",

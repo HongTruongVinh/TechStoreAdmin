@@ -82,10 +82,11 @@ export class TopbarComponent {
       parseFloat(this.discount)
     ).toFixed(2);
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        this.changeTheme(savedTheme);
-    }
+    // const savedTheme = localStorage.getItem('theme');
+    // if (savedTheme) {
+    //     this.changeTheme(savedTheme);
+    // }
+    //this.changeTheme('creative');
 
     // Cookies wise Language set
     this.cookieValue = this._cookiesService.get('lang');
@@ -126,24 +127,6 @@ export class TopbarComponent {
     }
   }
 
-  /**
-   * Topbar Light-Dark Mode Change
-   */
-  changeMode(mode: string) {
-    this.mode = mode;
-    if (mode == 'auto') {
-      document.documentElement.setAttribute('data-bs-theme', 'light');
-      document.documentElement.setAttribute('data-topbar', 'light');
-      document.documentElement.classList.add('mode-auto');
-    } else {
-      this.store.dispatch(changeMode({ mode }));
-      this.store.select(getLayoutmode).subscribe((mode) => {
-        document.documentElement.setAttribute('data-bs-theme', mode);
-      });
-      document.documentElement.classList.remove('mode-auto');
-      document.documentElement.setAttribute('data-topbar', mode);
-    }
-  }
 
   /***
    * Language Listing
@@ -377,5 +360,24 @@ export class TopbarComponent {
     
     // Lưu theme vào localStorage để duy trì sau khi refresh
     localStorage.setItem('theme', theme);
-}
+  }
+  
+  /**
+   * Topbar Light-Dark Mode Change
+   */
+  changeMode(mode: string) {
+    this.mode = mode;
+    if (mode == 'auto') {
+      document.documentElement.setAttribute('data-bs-theme', 'light');
+      document.documentElement.setAttribute('data-topbar', 'light');
+      document.documentElement.classList.add('mode-auto');
+    } else {
+      this.store.dispatch(changeMode({ mode }));
+      this.store.select(getLayoutmode).subscribe((mode) => {
+        document.documentElement.setAttribute('data-bs-theme', mode);
+      });
+      document.documentElement.classList.remove('mode-auto');
+      document.documentElement.setAttribute('data-topbar', mode);
+    }
+  }
 }

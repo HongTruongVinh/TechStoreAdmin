@@ -1,5 +1,5 @@
 <!-- Start Breadcrumbs -->
-<app-breadcrumbs title="Orders" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<app-breadcrumbs title="Tất cả đơn hàng online" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
 <!-- End Breadcrumbs -->
 
 <div class="row">
@@ -12,6 +12,19 @@
                             <input type="text" class="form-control search" [(ngModel)]="term" (keyup)="searchData()"
                                 placeholder="Tìm kiếm mã đơn hàng">
                             <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div><!--end col-->
+                    <div class="col-xxl-2 col-sm-12">
+                        <div>
+                            <select [(ngModel)]="selectedOrderStatus" class="form-select">
+                                <option [defaultSelected]="true" value="">Tất cả trạng thái</option>
+                                <option value="0">{{0 | orderStatus:'label'}}</option>
+                                <option value="1">{{1 | orderStatus:'label'}}</option>
+                                <option value="2">{{2 | orderStatus:'label'}}</option>
+                                <option value="3">{{3 | orderStatus:'label'}}</option>
+                                <option value="4">{{4 | orderStatus:'label'}}</option>
+                                <option value="5">{{5 | orderStatus:'label'}}</option>
+                            </select>
                         </div>
                     </div><!--end col-->
                     <div class="col-xxl-2 col-sm-6">
@@ -32,8 +45,8 @@
                         </div>
                     </div><!--end col-->
                     <div class="col-xxl-auto col-sm-6">
-                        <button type="button" class="btn btn-secondary w-md"><i
-                                class="bi bi-funnel align-baseline me-1" (click)="filterdata()"></i> Lọc</button>
+                        <button type="button" class="btn btn-subtle-primary w-md" (click)="filterdata()">
+                            <i class="bi bi-funnel align-baseline me-1"></i> Lọc</button>
                     </div><!--end col-->
                 </div><!--end row-->
             </div>

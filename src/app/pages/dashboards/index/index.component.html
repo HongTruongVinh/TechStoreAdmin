@@ -219,10 +219,8 @@
                             </span><span class="text-muted dropdown-title">{{sortValue}}</span> <i class="mdi mdi-chevron-down ms-1"></i>
                         </a>
                         <div *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
-                            <button class="dropdown-item sort" (click)="sortBy('name','Producty Name')">Producty Name</button>
-                            <button class="dropdown-item sort" (click)="sortBy('price','Price')">Price</button>
-                            <button class="dropdown-item sort" (click)="sortBy('agentname','Agent Name')">Agent Name</button>
-                            <button class="dropdown-item sort" (click)="sortBy('status','Status')">Status</button>
+                            <button class="dropdown-item sort" (click)="sortBy('name','Producty Name')">Tên sản phẩm</button>
+                            <button class="dropdown-item sort" (click)="sortBy('price','Price')">Giá</button>
                         </div>
                     </div>
                 </div>
@@ -301,7 +299,7 @@
             <div class="card-header d-flex align-items-center">
                 <h4 class="card-title mb-0 flex-grow-1">Khách hàng phản hồi</h4>
                 <div class="flex-shrink-0">
-                    <a href="javascript:void(0);" class="text-muted">View All <i class="bi bi-chevron-right align-baseline"></i></a>
+                    <a href="javascript:void(0);" class="text-muted">Xem tất cả <i class="bi bi-chevron-right align-baseline"></i></a>
                 </div>
             </div>
             <div class="card-body px-0">
@@ -414,7 +412,7 @@
                     </div>
                 </ngx-simplebar>
                 <div class="text-center">
-                    <a href="apps-real-estate-list.html" class="icon-link">View All <i class="bi bi-arrow-right"></i></a>
+                    <a href="apps-real-estate-list.html" class="icon-link">Xem tất cả <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
         </div><!--end card-->
@@ -434,7 +432,7 @@
                                                 <apx-chart [series]="miniChart6.series" [chart]="miniChart6.chart" [colors]="miniChart6.colors" [stroke]="miniChart6.stroke" dir="ltr"></apx-chart>
                                             </div>
                                         </div>
-                                        <h5 class="mb-0">2451 <small class="badge fs-2xs bg-danger-subtle text-danger ms-1"><i class="ph-arrow-down align-baseline"></i> 1.02%</small></h5>
+                                        <h5 class="mb-0">{{totalOrders}} <small class="badge fs-2xs bg-danger-subtle text-danger ms-1"><i class="ph-arrow-down align-baseline"></i> 1.02%</small></h5>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-xxl-3 col-md-6 border-end-xxl border-dashed">
@@ -445,7 +443,7 @@
                                                 <apx-chart [series]="miniChart7.series" [chart]="miniChart7.chart" [colors]="miniChart7.colors" [stroke]="miniChart7.stroke" dir="ltr"></apx-chart>
                                             </div>
                                         </div>
-                                        <h5 class="mb-0">$750.36M <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 2.17%</small></h5>
+                                        <h5 class="mb-0">1203 <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 2.17%</small></h5>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-xxl-3 col-md-6 border-end-md border-dashed">
@@ -456,7 +454,7 @@
                                                 <apx-chart [series]="miniChart8.series" [chart]="miniChart8.chart" [colors]="miniChart8.colors" [stroke]="miniChart8.stroke" dir="ltr"></apx-chart>
                                             </div>
                                         </div>
-                                        <h5 class="mb-0">$750.36M <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 07.26%</small></h5>
+                                        <h5 class="mb-0">56 <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 07.26%</small></h5>
                                     </div>
                                 </div><!--end col-->
                                 <div class="col-xxl-3 col-md-6">
@@ -467,7 +465,7 @@
                                                 <apx-chart [series]="miniChart9.series" [chart]="miniChart9.chart" [colors]="miniChart9.colors" [stroke]="miniChart9.stroke" dir="ltr"></apx-chart>
                                             </div>
                                         </div>
-                                        <h5 class="mb-0">4689 <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 3.62%</small></h5>
+                                        <h5 class="mb-0">99 <small class="badge fs-2xs bg-success-subtle text-success ms-1"><i class="ph-arrow-up align-baseline"></i> 3.62%</small></h5>
                                     </div>
                                 </div><!--end col-->
                             </div><!--end row-->
@@ -479,76 +477,24 @@
                         <div class="card-header d-flex align-items-center">
                             <h4 class="card-title mb-0 flex-grow-1">Các hành động gần đây</h4>
                             <div class="flex-shrink-0">
-                                <a routerLink="/pages/timeline" class="text-muted">View All <i class="bi bi-chevron-right align-baseline"></i></a>
+                                <a routerLink="/pages/timeline" class="text-muted">Xem tất cả <i class="bi bi-chevron-right align-baseline"></i></a>
                             </div>
                         </div>
                         <div class="card-body px-0">
                             <ngx-simplebar class="px-3" style="height: 255px">
                                 <div class="acitivity-timeline acitivity-main">
-                                    <div class="acitivity-item d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/48/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
+                                    @for (data of overviewData.recentlyActions; track $index) {
+                                        <div class="acitivity-item d-flex mb-2">
+                                            <div class="flex-shrink-0">
+                                                <img src="assets/images/users/48/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h6 class="mb-1 lh-base">{{data.title}}</h6>
+                                                <p class="text-muted mb-2">{{data.description}} </p>
+                                                <small class="mb-0 text-muted">{{data.time | date:'HH:mm'}}</small>
+                                            </div>
                                         </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Purchased by James Price</h6>
-                                            <p class="text-muted mb-2">Product noise evolve smartwatch </p>
-                                            <small class="mb-0 text-muted">05:57 AM Today</small>
-                                        </div>
-                                    </div>
-                                    <div class="acitivity-item py-3 d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/32/avatar-1.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Natasha Carey have liked the products</h6>
-                                            <p class="text-muted mb-2">Allow users to like products in your WooCommerce
-                                                store.</p>
-                                            <small class="mb-0 text-muted">25 Dec, 2022</small>
-                                        </div>
-                                    </div>
-                                    <div class="acitivity-item py-3 d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/48/avatar-3.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Today offers by <a href="javascript:void(0);" class="link-secondary">Digitech Galaxy</a></h6>
-                                            <p class="text-muted mb-2">Offer is valid on orders of $230 Or above for
-                                                selected products only.</p>
-                                            <small class="mb-0 text-muted">12 Dec, 2022</small>
-                                        </div>
-                                    </div>
-                                    <div class="acitivity-item py-3 d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/48/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Favorites Product</h6>
-                                            <p class="text-muted mb-2">Esther James have favorites product.</p>
-                                            <small class="mb-0 text-muted">25 Nov, 2022</small>
-                                        </div>
-                                    </div>
-                                    <div class="acitivity-item py-3 d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/48/avatar-2.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Flash sale starting <span class="text-primary">Tomorrow.</span></h6>
-                                            <p class="text-muted mb-2">Flash sale by <a href="javascript:void(0);" class="link-secondary fw-medium">Zoetic Fashion</a></p>
-                                            <small class="mb-0 text-muted">22 Oct, 2022</small>
-                                        </div>
-                                    </div>
-                                    <div class="acitivity-item d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/48/avatar-5.jpg" alt="" class="avatar-xs rounded-circle acitivity-avatar">
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h6 class="mb-1 lh-base">Monthly sales report</h6>
-                                            <p class="text-muted mb-2"><span class="text-danger">2 days left</span>
-                                                notification to submit the monthly sales report. <a href="javascript:void(0);" class="link-warning text-decoration-underline">Reports Builder</a>
-                                            </p>
-                                            <small class="mb-0 text-muted">15 Oct, 2022</small>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             </ngx-simplebar>
                         </div>
@@ -559,97 +505,29 @@
                         <div class="card-header d-flex align-items-center">
                             <h4 class="card-title mb-0 flex-grow-1">Khách hàng thân thiết</h4>
                             <div class="flex-shrink-0">
-                                <a routerLink="/real-estate/agent/list" class="text-muted">View All <i class="bi bi-chevron-right align-baseline"></i></a>
+                                <a routerLink="/real-estate/agent/list" class="text-muted">Xem tất cả <i class="bi bi-chevron-right align-baseline"></i></a>
                             </div>
                         </div>
                         <div class="card-body pt-4">
                             <div class="table-responsive table-card">
                                 <table class="table table-borderless table-centered align-middle table-nowrap mb-0">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/32/avatar-1.jpg" alt="" class="avatar-xxs rounded-circle">
+                                        @for (data of overviewData.loyalCustomer; track $index) {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-shrink-0 me-2">
+                                                            <img [src]="data.pictureUrl | fullImageUrl" alt="" class="avatar-xxs rounded-circle">
+                                                        </div>
+                                                        <div class="flex-grow-1">{{data.name}}</div>
                                                     </div>
-                                                    <div class="flex-grow-1">Dianna Bogan</div>
-                                                </div>
-                                            </td>
-                                            <td>United Kingdom</td>
-                                            <td>
-                                                +(86) 9985-9220
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/48/avatar-2.jpg" alt="" class="avatar-xxs rounded-circle">
-                                                    </div>
-                                                    <div class="flex-grow-1">Jansh Brown</div>
-                                                </div>
-                                            </td>
-                                            <td>Germany</td>
-                                            <td>
-                                                +(27) 3041-1766
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/48/avatar-3.jpg" alt="" class="avatar-xxs rounded-circle">
-                                                    </div>
-                                                    <div class="flex-grow-1">Ayaan Bowen</div>
-                                                </div>
-                                            </td>
-                                            <td>Brazil</td>
-                                            <td>
-                                                +(51) 3233-7909
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/48/avatar-4.jpg" alt="" class="avatar-xxs rounded-circle">
-                                                    </div>
-                                                    <div class="flex-grow-1">Prezy Mark</div>
-                                                </div>
-                                            </td>
-                                            <td>Spain</td>
-                                            <td>
-                                                +(48) 3877-9000
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/48/avatar-6.jpg" alt="" class="avatar-xxs rounded-circle">
-                                                    </div>
-                                                    <div class="flex-grow-1">Vihan Hudda</div>
-                                                </div>
-                                            </td>
-                                            <td>Brazil</td>
-                                            <td>
-                                                +(11) 3885-1022
-                                            </td>
-                                        </tr><!-- end tr -->
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <img src="assets/images/users/avatar-8.jpg" alt="" class="avatar-xxs rounded-circle">
-                                                    </div>
-                                                    <div class="flex-grow-1">Uriel King</div>
-                                                </div>
-                                            </td>
-                                            <td>USA</td>
-                                            <td>
-                                                +(21) 2345-6789
-                                            </td>
-                                        </tr><!-- end tr -->
+                                                </td>
+                                                <td>{{data.address}}</td>
+                                                <td>
+                                                    {{data.phoneNumber??data.email}}
+                                                </td>
+                                            </tr><!-- end tr -->
+                                        }
                                     </tbody><!-- end tbody -->
                                 </table><!-- end table -->
                             </div>

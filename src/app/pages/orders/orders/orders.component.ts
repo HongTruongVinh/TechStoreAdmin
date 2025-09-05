@@ -52,7 +52,8 @@ export class OrdersComponent {
   displayedOrders: any; // Chứa đơn hàng đang hiển thị trên table (ví dụ: trang 1)
   selectedOrderId: string = '';
   publicId?: string;
-
+  
+  selectedOrderStatus: string = '';  // Changed from number to string to match select value
   fromDate!: string;
   toDate!: string;
 
@@ -68,7 +69,7 @@ export class OrdersComponent {
 
     this.breadCrumbItems = [
       { label: 'Quản lý', active: true },
-      { label: 'Danh mục sản phẩm', active: true }
+      { label: 'Đơn hàng online', active: true }
     ];
 
     this.bsConfig = {
@@ -176,8 +177,7 @@ export class OrdersComponent {
   }
 
   goToOrders(orderId: string) {
-    const url = `manage-orders/order-overview/${orderId}`;
-    window.open(url, '_blank');
+    this.router.navigate([`/manage-orders/order-overview/${orderId}`]);
   }
 
   checkedValGet: any[] = [];
@@ -251,29 +251,43 @@ export class OrdersComponent {
   }
 
   filterdata() {
+    if (!this.fromDate || !this.toDate) {
+      this.messengerService.errorNotification('Vui lòng chọn khoảng thời gian cần lọc');
+      return;
+    }
+
     this.isLoading = true;
 
-    let from: Date | null = this.fromDate ? new Date(this.fromDate) : null;
-    let to: Date = this.toDate ? new Date(this.toDate) : new Date();
+    try {
+      // Convert dates to start of day and end of day
+      const from = new Date(this.fromDate);
+      from.setHours(0, 0, 0, 0);
 
-    // Set toDate đến cuối ngày
-    to.setHours(23, 59, 59, 999);
+      const to = new Date(this.toDate);
+      to.setHours(23, 59, 59, 999);
 
-    this.displayedOrders = this.allOrders.filter(order => {
-      const created = new Date(order.createdAt);
+      // Filter orders by date and status
+      this.displayedOrders = this.allOrders.filter(order => {
+        const orderDate = new Date(order.createdAt);
+        const dateInRange = orderDate >= from && orderDate <= to;
+        
+        // If no status is selected (selectedOrderStatus is empty string), show all orders
+        const statusMatches = this.selectedOrderStatus === '' || 
+                            order.orderStatus.toString() === this.selectedOrderStatus;
 
-      if (from && created < from) {
-        return false; // Bỏ qua nếu nhỏ hơn fromDate
+        return dateInRange && statusMatches;
+      });
+
+      // Reset pagination to first page
+      if (this.displayedOrders.length > 0) {
+        this.displayedOrders = this.displayedOrders.slice(0, 10);
       }
 
-      if (created > to) {
-        return false; // Bỏ qua nếu lớn hơn toDate (hoặc hôm nay)
-      }
-
-      return true; // Thỏa mãn điều kiện
-    });
-
-    this.isLoading = false;
-
+    } catch (error) {
+      console.error('Error filtering orders:', error);
+      this.messengerService.errorNotification('Có lỗi xảy ra khi lọc đơn hàng');
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

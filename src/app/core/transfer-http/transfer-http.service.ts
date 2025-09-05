@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { ConfigForApp } from '../../library/share-function/config-app';
 import { LocalStorageConfig } from '../../library/clientconfig/localstorageconfig';
 import { EContentType } from '../../library/enum/econtenttype';
+import { TokenStorageService } from '../services/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class TransferHttpService {
   private baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient,
+    private tokenStorageService: TokenStorageService,
     private router: Router,) {
     this.Host = this.baseUrl;
   }
@@ -82,7 +84,8 @@ export class TransferHttpService {
   }
 
   putUrl(url: string, contentType?: EContentType) {
-    return this.mapshare(this.http.put(this.Host + url, this.jwt(contentType)));
+    const options = this.jwt(contentType);
+    return this.mapshare(this.http.put(this.Host + url, null, options));
   }
 
   delete(url: string, contentType?: EContentType) {
@@ -180,10 +183,24 @@ export class TransferHttpService {
       'Content-Type': sContent,
     });
 
-    if (LocalStorageConfig.GetUser() != null) {
-      // tslint:disable-next-line: prefer-const
-      let currentUser = LocalStorageConfig.GetUser();
-      const returnToken = currentUser.token;
+    // if (LocalStorageConfig.GetUser() != null) {
+    //   // tslint:disable-next-line: prefer-const
+    //   let currentUser = LocalStorageConfig.GetUser();
+    //   const returnToken = currentUser.token;
+    //   if (currentUser && returnToken) {
+    //     httpHeaders = new HttpHeaders(
+    //       {
+    //         // tslint:disable-next-line: object-literal-key-quotes
+    //         'Authorization': 'Bearer ' + returnToken,
+    //         'Content-Type': sContent
+    //       },
+    //     );
+    //   }
+    // }
+
+    if (this.tokenStorageService.getUser() != null) {
+      const currentUser = this.tokenStorageService.getUser();
+      const returnToken = this.tokenStorageService.getToken();
       if (currentUser && returnToken) {
         httpHeaders = new HttpHeaders(
           {
@@ -194,6 +211,7 @@ export class TransferHttpService {
         );
       }
     }
+
     return { headers: httpHeaders };
   }
 

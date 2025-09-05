@@ -11,7 +11,8 @@ export enum EOrderStatus {
 export enum EInvoiceStatus {
     Paid,    // Đã thanh toán
     Unpaid,  // Chưa thanh toán 
-    Canceled
+    Canceled,
+    Refunded
 }
 
 export enum EPaymentStatus {
@@ -68,4 +69,29 @@ export enum EOrderType
 {
     InStore, // Đơn hàng tại cửa hàng
     Online,  // Đơn hàng trực tuyến
+}
+
+export enum ERetCode
+{
+    Successfull,
+
+    BadRequest,
+
+    SystemError,
+
+    LoginSuccess,
+
+    LoginError,
+
+    ExitAccount,
+
+    ErrorCookie,
+
+    PasswordNotSame,
+
+    NoExitData,
+
+    ConfictData,
+
+    NoPermission
 }

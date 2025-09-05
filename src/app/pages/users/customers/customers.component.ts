@@ -14,6 +14,9 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 import { UserService } from '../../../core/services/user.service';
 import { EUserStatus } from '../../../models/enum/etype_project.enum';
 import { ThousandSeparatorPipe } from "../../../pipeTransform/thousandSeparator.pipe";
+import { UserStatusPipe } from '../../../pipeTransform/user-status.pipe';
+import { CustomerListItemModel } from '../../../models/models/user/customer-list-item.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -31,7 +34,8 @@ import { ThousandSeparatorPipe } from "../../../pipeTransform/thousandSeparator.
     DropzoneModule,
     DateToStringPipe,
     SimplebarAngularModule,
-    ThousandSeparatorPipe
+    ThousandSeparatorPipe,
+    UserStatusPipe
 ],
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
@@ -47,8 +51,9 @@ export class CustomersComponent {
   submitted: boolean = false;
   //public Editor = ClassicEditor;
   term: any;
-  allCustomers: any
+  allCustomers: CustomerListItemModel[] = [];
   deleteId: any;
+  selectedUserStatus: string = '';
 
   @ViewChild('showModal', { static: false }) showModal?: ModalDirective;
   @ViewChild('deleteRecordModal', { static: false }) deleteRecordModal?: ModalDirective;
@@ -58,7 +63,9 @@ export class CustomersComponent {
   constructor(
     private formBuilder: UntypedFormBuilder, 
     private userService: UserService,
-    public store: Store) {
+    public store: Store,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -155,13 +162,7 @@ export class CustomersComponent {
     })
   }
 
-  // follow unfollow button
-  followbtn(ev: any) {
-    ev.target.closest('button').classList.toggle('active')
-  }
-
-  // filterdata
-  filterdata() {
+  searchData() {
     if (this.term) {
       this.displayedCustomers = this.allCustomers.filter((el: any) => el.email.toLowerCase().includes(this.term.toLowerCase()) 
       || el.name.toLowerCase().includes(this.term.toLowerCase())
@@ -204,14 +205,31 @@ export class CustomersComponent {
     }
   }
 
+  filterData(){
+    this.displayedCustomers = this.allCustomers.filter(customer => {
+      const statusMatches = this.selectedUserStatus === '' || customer.status.toString() === this.selectedUserStatus;
+      return statusMatches;
+    });
+
+    if (this.displayedCustomers.length > 0) {
+      this.displayedCustomers = this.displayedCustomers.slice(0, 10);
+    }
+  }
+
   // view customer detail
   viewCustomer(id: any) {
     this.customerdetail = this.displayedCustomers[id]
   }
 
+  active(userId: string){
+
+  }
+
+  ban(userId: string){
+
+  }
+
   goToOrder(orderId: string) {
-    const url = `manage-orders/order-overview/${orderId}`;
-    window.open(url, '_blank');
+    this.router.navigate([`/manage-orders/order-overview/${orderId}`]);
   }
 }
-

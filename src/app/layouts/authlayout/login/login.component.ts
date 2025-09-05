@@ -9,6 +9,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { LoginRequestModel } from '../../../models/models/user/login-request.model';
 import { TokenStorageService } from '../../../core/services/token-storage.service';
+import { ERetCode } from '../../../models/enum/etype_project.enum';
+import { LocalStorageConfig } from '../../../library/clientconfig/localstorageconfig';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +42,7 @@ export class LoginComponent {
   constructor(private formBuilder: UntypedFormBuilder,
     private authenticationService: AuthenticationService,
     private tokenStorageService: TokenStorageService,
+    //private localStorageConfig: LocalStorageConfig,
     private router: Router,
     private store: Store,
   ) { }
@@ -75,11 +78,13 @@ export class LoginComponent {
     };
 
     this.authenticationService.loginNormalAccount(LoginRequest).subscribe((res) => {
-      if (res.retCode == 0) {
+      if (res.retCode == ERetCode.LoginSuccess) {
         const data = res.data;
         if (data) {
-          this.tokenStorageService.saveUser(data.user);
-          this.tokenStorageService.saveToken(data.token);
+           this.tokenStorageService.saveUser(data.user);
+           this.tokenStorageService.saveToken(data.token);
+           //LocalStorageConfig.SetUser(JSON.stringify(data));
+
           this.router.navigate(['']);
         }
       }

@@ -13,8 +13,8 @@
                     </div>
                     <div>
                         <div class="d-flex flex-wrap gap-2">
-                            <button type="button" class="btn btn-secondary"><i class="ph-cloud-arrow-down align-middle me-1"></i> Import</button>
-                            <button type="button" class="btn btn-subtle-info"><i class="ph-cloud-arrow-up align-middle me-1"></i> Export</button>
+                            <button type="button" class="btn btn-secondary"><i class="ph-cloud-arrow-down align-middle me-1"></i> Nhập</button>
+                            <button type="button" class="btn btn-subtle-info"><i class="ph-cloud-arrow-up align-middle me-1"></i> Xuất</button>
                         </div>
                     </div>
                 </div>
@@ -28,27 +28,25 @@
         <div class="card">
             <div class="card-body">
                 <div class="row gy-3">
-                    <div class="col-xl-4">
+                    <div class="col-xxl">
                         <div class="search-box">
-                            <input type="text" class="form-control search" placeholder="Tìm bằng tên, SĐT, email" [(ngModel)]="term" (keyup)="filterdata()">
+                            <input type="text" class="form-control search" placeholder="Tìm bằng tên, SĐT, email" [(ngModel)]="term" (keyup)="searchData()">
                             <i class="ri-search-line search-icon"></i>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-4">
                         <div>
-                            <select class="form-control" id="idStatus" (click)="selectstatus()">
-                                <option value="" selected>All Select</option>
-                                <option value="Active">Active</option>
-                                <option value="Unactive">Banned</option>
-                                <option value="Block">Deleted</option>
+                            <select class="form-control" [(ngModel)]="selectedUserStatus" (change)="filterData()">
+                                <option value="" selected>Tất cả trạng thái</option>
+                                <option value="0">{{0 | userStatus:'label'}}</option>
+                                <option value="1">{{1 | userStatus:'label'}}</option>
+                                <option value="2">{{2 | userStatus:'label'}}</option>
+                                <option value="3">{{3 | userStatus:'label'}}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-4">
-                        <input type="text" class="form-control" id="datepicker-range" mwlFlatpickr dateFormat="d M, Y" mode="range" placeholder="Select date">
-                    </div>
                     <div class="col-xl-2 col-md-4">
-                        <button class="btn btn-subtle-primary w-100"><i class="bi bi-funnel align-baseline me-1"></i> Filter</button>
+                        <button class="btn btn-subtle-primary w-100" (click)="filterData()"><i class="bi bi-funnel align-baseline me-1"></i> Lọc</button>
                     </div>
                 </div>
             </div>
@@ -76,25 +74,25 @@
                                 <td class="email">{{data.email}}</td>
                                 <td class="contact">{{data.phoneNumber}}</td>
                                 <td class="date">{{data.createdAt| dateToString:'getDate'}}</td>
-                                <td class="status"><span class="badge" [ngClass]="{'bg-secondary-subtle text-secondary': data.status === 1,'bg-success-subtle text-success': data.status === 0,'bg-danger-subtle text-danger': data.status === 3}">{{data.status}}</span></td>
+                                <td class="status"><span class="badge" [ngClass]="{'bg-secondary-subtle text-secondary': data.status === 1,'bg-success-subtle text-success': data.status === 0,'bg-danger-subtle text-danger': data.status === 3}">{{data.status | userStatus:'label'}}</span></td>
                                 <td>
                                     <div dropdown class="dropdown">
                                         <button dropdownToggle class="btn btn-subtle-secondary btn-sm dropdown" type="button">
                                             <i class="ri-more-fill align-middle"></i>
                                         </button>
                                         <ul *bsDropdownMenu class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item view-item-btn" href="javascript:void(0);" (click)="viewCustomer($index)"><i
-                                                        class="bi bi-check-circle align-bottom me-2 text-muted"></i>Mở khóa</a>
+                                            <li><a class="dropdown-item view-item-btn text-success" href="javascript:void(0);" (click)="active(data.userId)"><i
+                                                        class="bi bi-check-circle align-bottom me-2"></i>Mở khóa</a>
                                             </li>
-                                            <li><a class="dropdown-item edit-item-btn" href="javascript:void(0);" (click)="editCustomer($index)"><svg
+                                            <li><a class="dropdown-item edit-item-btn text-danger" href="javascript:void(0);" (click)="ban(data.userId)"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ban"
                                                         viewBox="0 0 16 16">
                                                         <path
                                                             d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0" />
                                                     </svg>
                                                     Khóa</a></li>
-                                            <li><a class="dropdown-item remove-item-btn" href="javascript:void(0);" (click)="removeCustomer(data.id)"><i
-                                                        class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                            <li><a class="dropdown-item remove-item-btn text-secondary" href="javascript:void(0);" (click)="removeCustomer(data.id)"><i
+                                                        class="ri-delete-bin-fill align-bottom me-2"></i>
                                                     Xóa</a></li>
                                         </ul>
                                     </div>
@@ -120,11 +118,11 @@
                 <div class="align-items-center mt-4 justify-content-between row text-center text-sm-start" id="pagination-element">
                     <div class="col-sm">
                         <div class="text-muted">
-                            Showing <span class="fw-semibold">{{displayedCustomers?.length}}</span> of <span class="fw-semibold">{{allCustomers?.length}}</span> Results
+                            Showing <span class="fw-semibold">{{displayedCustomers?.length}}</span> of <span class="fw-semibold">{{allCustomers.length}}</span> Results
                         </div>
                     </div>
                     <div class="col-sm-auto  mt-3 mt-sm-0">
-                        <pagination class="pagination-wrap hstack gap-2" [totalItems]="allCustomers?.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
+                        <pagination class="pagination-wrap hstack gap-2" [totalItems]="allCustomers.length" [itemsPerPage]="10" (pageChanged)="pageChanged($event)"></pagination>
                     </div>
                 </div>
             </div>
@@ -144,7 +142,7 @@
                         </div>
                     </div>
                     <ul class="d-flex align-items-center gap-2 list-unstyled mt-4">
-                        <li>Social Media:</li>
+                        <li>Mạng xã hội:</li>
                         <li>
                             <a href="javascript:void(0);" class="btn btn-subtle-success btn-icon btn-sm"><i class="bi bi-whatsapp"></i></a>
                         </li>
