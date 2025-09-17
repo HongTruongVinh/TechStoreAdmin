@@ -10,6 +10,8 @@ import { BreadcrumbsComponent } from '../../../shared/breadcrumbs/breadcrumbs.co
 import { OrderService } from '../../../core/services/order.service';
 import { EOrderStatus } from '../../../models/enum/etype_project.enum';
 import { OrderStatusPipe } from '../../../pipeTransform/order-status.pipe';
+import { InvoiceStatusPipe } from '../../../pipeTransform/invoice-status.pipe';
+import {EPaymentMethodPipe} from "../../../pipeTransform/payment-method.pipe";
 import { Base64ImagePipe } from "../../../pipeTransform/base64Image.pipe";
 import { OrderDetailModel } from '../../../models/models/order/order-detail.model';
 import { FullImageUrlPipe } from "../../../pipeTransform/full-image-url.pipe";
@@ -24,6 +26,8 @@ import { FullImageUrlPipe } from "../../../pipeTransform/full-image-url.pipe";
     ThousandSeparatorPipe,
     DateToStringPipe,
     OrderStatusPipe,
+    InvoiceStatusPipe,
+    EPaymentMethodPipe,
     Base64ImagePipe,
     FullImageUrlPipe
 ],

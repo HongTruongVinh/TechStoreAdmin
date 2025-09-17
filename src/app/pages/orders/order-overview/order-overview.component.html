@@ -66,8 +66,8 @@
                 <div class="flex-grow-1">
                     <h6 class="card-title mb-3">Thông tin hóa đơn</h6>
                     <p class="fw-medium fs-md mb-1">{{orderDetail.invoice.invoiceId}}</p>
-                    <p class="text-muted mb-1">Thanh toán: {{orderDetail.paymentMethod}}</p>
-                    <p class="text-muted mb-0">Trạng thái: {{orderDetail.invoice.invoiceStatus}}</p>
+                    <p class="text-muted mb-1">Thanh toán: {{orderDetail.paymentMethod  | paymentMethod}}</p>
+                    <p class="text-muted mb-0">Trạng thái: {{orderDetail.invoice.invoiceStatus | invoiceStatus}}</p>
                 </div>
                 <div class="flex-shrink-0">
                     <div class="avatar-sm">
@@ -85,8 +85,8 @@
                 <div class="flex-grow-1">
                     <h6 class="card-title mb-3">Thông tin thanh toán</h6>
                     <p class="fw-medium fs-md mb-1">ID: #TBS3650259845</p>
-                    <p class="text-muted mb-1">Payment Method: <b>{{orderDetail.payment.paymentMethod}}</b></p>
-                    <p class="text-muted mb-0">Transaction Number: <b>{{orderDetail.payment.transactionCode}}</b></p>
+                    <p class="text-muted mb-1">Payment Method: <b>{{orderDetail.payment.paymentMethod }}</b></p>
+                    <p class="text-muted mb-0">Transaction Number: <b>{{orderDetail.payment.transactionCode }}</b></p>
                 </div>
                 <div class="flex-shrink-0">
                     <div class="avatar-sm">
@@ -259,13 +259,17 @@
                     <a href="javascript:void(0);" class="progress-bar" [ngClass]="{
                                      'active': orderDetail.orderStatus >= 0
                                    }" role="progressbar" style="width: 100%">
-                        <i class="ph-bag align-baseline me-1 d-none d-lg-inline-block"></i> Order Placed
+                        <i class="ph-bag align-baseline me-1 d-none d-lg-inline-block"></i> 
+                        {{ orderDetail.orderStatus === 0 ? (orderDetail.orderStatus | orderStatus:'label') : 'Đang chờ duyệt'
+                        }}
                     </a>
 
                     <a href="javascript:void(0);" class="progress-bar" [ngClass]="{
                                      'active': orderDetail.orderStatus >= 1
                                    }" role="progressbar" style="width: 100%">
-                        <i class="ph-package align-middle me-1"></i> Packed
+                        <i class="ph-package align-middle me-1"></i> 
+                        {{ orderDetail.orderStatus === 1 ? (orderDetail.orderStatus | orderStatus:'label') : 'Đang đóng gói'
+                        }}
                     </a>
 
                     <a href="javascript:void(0);" class="progress-bar" [ngClass]="{
@@ -273,14 +277,15 @@
                                      'pending': orderDetail.orderStatus === 2
                                    }" role="progressbar" style="width: 100%">
                         <i class="ph-truck align-baseline me-1 d-none d-lg-inline-block"></i>
-                        {{ orderDetail.orderStatus === 2 ? (orderDetail.orderStatus | orderStatus:'label') : 'Shipping'
+                        {{ orderDetail.orderStatus === 2 ? (orderDetail.orderStatus | orderStatus:'label') : 'Đang vận chuyển'
                         }}
                     </a>
 
                     <a href="javascript:void(0);" class="progress-bar" [ngClass]="{
                                      'active': orderDetail.orderStatus >= 3
                                    }" role="progressbar" style="width: 100%">
-                        <i class="ph-bicycle align-baseline me-1 d-none d-lg-inline-block"></i> Out For Delivery
+                        <i class="ph-bicycle align-baseline me-1 d-none d-lg-inline-block"></i>
+                        Đang chờ giao hàng
                     </a>
 
                     <a href="javascript:void(0);" class="progress-bar" [ngClass]="{
@@ -288,7 +293,7 @@
                                    }" role="progressbar" style="width: 100%">
                         <i class="ph-house-line align-baseline me-1 d-none d-lg-inline-block"></i>
                         {{ orderDetail.orderStatus === 3 || orderDetail.orderStatus === 4 ? (orderDetail.orderStatus |
-                        orderStatus:'label') : 'Delivered' }}
+                        orderStatus:'label') : 'Đã giao hàng' }}
                     </a>
                 </div>
 
